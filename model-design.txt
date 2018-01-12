@@ -1,0 +1,40 @@
+Category
+    title: String,
+
+    url: String
+
+Product
+    title: String,
+    price: Number,
+    dimentions: String,
+    features: String,
+
+    url: String
+
+ProductInstance
+    product: Product,
+    color: String,
+    status: enum,
+    
+    url: String,
+
+Inventory
+    productInstance: ProductInstance,
+    qty: Number,
+
+    url: String,
+
+User
+    name: String,
+    phone: String,
+    email: String,
+    address: String,
+    vendorCode: Number
+
+Order
+    productInstance: ProductInstance,
+    qty: Number,
+    user: User,
+    time: Date
+
+    url: String,
