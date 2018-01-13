@@ -7,7 +7,7 @@ var ProductInstanceSchema = new Schema(
     title: {type: String, required: true, max: 100},
     product: {type: Schema.ObjectId, ref: 'Product', required: true},
     color: {type: String},
-    features: {type: String, required: true, enum: ['Available', 'Not Available', 'Discontinued'], default: 'Available'},
+    availability: {type: String, required: true, enum: ['Available', 'Not Available', 'Discontinued'], default: 'Available'}
   }
 );
 
