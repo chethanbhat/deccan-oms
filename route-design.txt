@@ -1,0 +1,16 @@
+/ - Home route
+
+dashboard/ - The home/index page
+dashboard/orders - List of orders - - /create, /update, /delete
+dashboard/orders/id - Individual orders
+
+dashboard/inventory - inventory - /create, /update, /delete
+
+dashboard/categories  - /create, /update, /delete
+dashboard/categories/id - Individual category
+
+dashboard/products    - /create, /update, /delete  
+dashboard/products/id - Individual Product
+
+dashboard/productInstances - /create, /update, /delete
+dashboard/productInstances/id - Individual Product Instances 

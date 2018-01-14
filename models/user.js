@@ -16,7 +16,7 @@ var UserSchema = new Schema(
 UserSchema
 .virtual('url')
 .get(function () {
-  return '/users/' + this._id;
+  return 'dashboard/users/' + this._id;
 });
 
 //Export model

@@ -19,7 +19,7 @@ var OrderSchema = new Schema(
 OrderSchema
 .virtual('url')
 .get(function () {
-  return '/orders/' + this._id;
+  return 'dashboard/orders/' + this._id;
 });
 
 //Export model

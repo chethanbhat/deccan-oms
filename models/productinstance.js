@@ -15,7 +15,7 @@ var ProductInstanceSchema = new Schema(
 ProductInstanceSchema
 .virtual('url')
 .get(function () {
-  return '/productinstance/' + this._id;
+  return 'dashboard/productinstance/' + this._id;
 });
 
 //Export model
