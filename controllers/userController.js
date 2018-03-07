@@ -1,13 +1,27 @@
-const user = require('../models/user');
+const User = require('../models/user');
 
 // Display list of all Users
 exports.user_list = (req, res) => {
-    res.send('Not Implemented: User List');
+    User.find({}, 'name url')
+    .sort('vendorCode')
+    .exec((err, list_users) => {
+        if(err){return next(err);}
+        res.render('user_list',{title: 'All Users', users_list: list_users});
+    });
 }
 
 // Display detail page for a specific user
 exports.user_detail = (req, res) => {
-    res.send('Not Implemented: User Detail: ' + req.params.id);
+    User.findById(req.params.id)
+    .exec((err, user) => {
+        if(err){return next(err);}
+        if(user == null){
+            let err = new Error('User not found');
+            err.status = 404;
+            return next(err);
+        }
+        res.render('user_detail',{title: 'Users Profile', user});
+    });
 }
 
 // Display user create form on GET

@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    h1= title
+
+    ul 
+    each product in product_list
+        h3 
+            a(href=product.url) #{product.title} 
+        p 
+            a(href=product.category.url) (#{product.category.title})
+    else
+        p There are no products.

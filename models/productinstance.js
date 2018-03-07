@@ -11,11 +11,11 @@ var ProductInstanceSchema = new Schema(
   }
 );
 
-// Virtual for author's URL
+// Virtual for product's URL
 ProductInstanceSchema
 .virtual('url')
 .get(function () {
-  return 'dashboard/productinstance/' + this._id;
+  return 'productinstance/' + this._id;
 });
 
 //Export model

@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    h1= title
+
+    ul 
+    each user in users_list
+        p 
+            a(href= '/dashboard/' + user.url) #{user.name}
+    else
+        p There are no users.

@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+const moment = require('moment');
 
 var Schema = mongoose.Schema;
 
@@ -19,7 +20,13 @@ var OrderSchema = new Schema(
 OrderSchema
 .virtual('url')
 .get(function () {
-  return 'dashboard/orders/' + this._id;
+  return 'order/' + this._id;
+});
+
+OrderSchema
+.virtual('formatted_time')
+.get(function () {
+  return moment(this.time).format("dddd, MMMM Do YYYY, h:mm a");
 });
 
 //Export model

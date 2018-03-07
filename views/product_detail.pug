@@ -1,0 +1,11 @@
+extends layout
+
+block content
+        h1 Product: #{product.title}
+        h3 Category: 
+                a(href='/dashboard/' + product.category.url) #{product.category.title}
+        p  Below are the products in this category.
+        .product_instance_list
+            each instance in product_instances
+                p
+                    a(href='/dashboard/' + instance.url) #{instance.title}

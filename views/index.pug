@@ -2,4 +2,15 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p Welcome to #{title} for Deccan Plast Industries.
+
+  if error
+    p Error getting dynamic content
+  else 
+    p The Dashboard has following data
+
+    ul 
+      li #[strong Orders:] !{data.order_count}
+      li #[strong Users:] !{data.user_count}
+      li #[strong Products:] !{data.product_count}
+      li #[strong Categories:] !{data.category_count}

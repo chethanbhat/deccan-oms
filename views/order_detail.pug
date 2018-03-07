@@ -1,0 +1,9 @@
+extends layout
+
+block content
+        h3 Order Description
+        each product,index in order.items
+            p 
+                strong #{index+1}) #{product.item.title} , Qty: #{product.quantity}
+        p Order by #{order.user.name}
+        p Placed on #{order.formatted_time}

@@ -1,0 +1,9 @@
+extends layout
+
+block content
+        h1 Category: #{category.title}
+        p  Below are the products in this category.
+        .products_list
+            each product in category_products
+                p
+                    a(href='/dashboard/' + product.url) #{product.title}

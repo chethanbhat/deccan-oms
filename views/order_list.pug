@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    h1= title
+
+    ul 
+    each order,index in order_list
+        h3   
+            a(href='/dashboard/' + order.url) Order no #{index+1}
+        p   Vendor Name: #{order.user.name} 
+        p  Date: #{order.formatted_time}
+    else
+        li There are no orders.

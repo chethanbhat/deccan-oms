@@ -1,0 +1,24 @@
+extends layout
+
+block content
+    h1 #{title}
+
+    form(method='POST' action='')
+        div.form-group
+            label(for='title') Product:
+            input#title.form-control(type='text', placeholder='Ferrari, Lotus, Hexa' name='title' value=(undefined===product ? '' : product.name))
+            label(for='category') Category:
+            select
+                each category in category_list
+                    option(value=category.id) #{category.title}
+            br
+            label(for='price') Price (in Rs):
+            input#price.form-control(type='number', placeholder='1250, 750, 500' name='price' value=(undefined===product ? '' : product.price))
+            label(for='dimensions') Dimensions(in mm):
+            input#dimensions.form-control(type='text', placeholder='500mm x 200mm x 300mm')
+        button.btn.btn-primary(type='submit') Submit
+
+    if errors 
+        ul
+            for error in errors
+                li!= error.msg

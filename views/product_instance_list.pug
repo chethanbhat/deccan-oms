@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    h1= title
+
+    ul 
+    each product in product_instance_list
+        p 
+            a(href=product.url) #{product.title}
+            
+    else
+        p There are no products.

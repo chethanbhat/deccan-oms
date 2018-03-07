@@ -17,7 +17,7 @@ var InventorySchema = new Schema(
 InventorySchema
 .virtual('url')
 .get(function () {
-  return 'dashboard/inventory/' + this._id;
+  return 'inventory/' + this._id;
 });
 
 //Export model

@@ -12,7 +12,7 @@ var CategorySchema = new Schema(
 CategorySchema
 .virtual('url')
 .get(function () {
-  return 'dashboard/category/' + this._id;
+  return 'category/' + this._id;
 });
 
 //Export model

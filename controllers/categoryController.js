@@ -1,24 +1,90 @@
-const category = require('../models/category');
+const async = require('async');
+const Order = require('../models/order');
+const Product = require('../models/product');
+const Category = require('../models/category');
+const ProductInstance = require('../models/productinstance');
+const Inventory = require('../models/inventory');
+const User = require('../models/user');
+const { body,validationResult } = require('express-validator/check');
+const { sanitizeBody } = require('express-validator/filter');
+
 
 // Display list of all Categories
 exports.category_list = (req, res) => {
-    res.send('Not Implemented: Category List');
+    Category.find({},'title')
+            .exec((err, list_categories) => {
+                if(err){return next(err);}
+                res.render('category_list', {title: 'All Categories', category_list: list_categories});
+            });
 }
 
 // Display detail page for a specific Category
 exports.category_detail = (req, res) => {
-    res.send('Not Implemented: Category Detail: ' + req.params.id);
+    async.parallel({
+        category: (callback) => {Category.findById(req.params.id).exec(callback);},
+        category_products: (callback) => {Product.find({'category': req.params.id}).exec(callback);},   
+    }, (err, results) => {
+        if(err){return next(err);}
+        if(results.category == null){
+            let err = new Error('Category not found');
+            err.status = 404;
+            console.log("No categories");
+            return next(err);
+        }
+        // Successful, so render
+        res.render('category_detail', {title: 'Category Details', category: results.category, category_products: results.category_products});
+    });
 }
 
 // Display Category create form on GET
 exports.category_create_get = (req, res) => {
-    res.send('Not Implemented: Category create GET');
+    res.render('category_form', {title: 'Create Category'});    
 }
 
 // Handle Category create on POST
-exports.category_create_post = (req, res) => {
-    res.send('Not Implemented: Category create POST');
-}
+exports.category_create_post = [
+    // Validate that the name field is not empty.
+    body('title', 'Category name required').isLength({min:1}).trim(),
+    
+    // Sanitize (trim and escape) the name field.
+    sanitizeBody('title').trim().escape(),
+
+    // Process request after validation and sanitization.
+    (req, res, next) => {
+            // Extract the validation errors from a request.
+            const errors = validationResult(req);
+
+            // Create a genre object with escaped and trimmed data.
+            const category = new Category(
+                { title: req.body.title }
+            );
+
+            if (!errors.isEmpty()) {
+                // There are errors. Render the form again with sanitized values/error messages.
+                res.render('category_form', { title: 'Create Category', category: category, errors: errors.array()});
+            return;
+            }
+            else {
+                // Data from form is valid.
+                // Check if Category with same name already exists.
+                Category.findOne({'title': req.body.title})
+                .exec((err, found_category) => {
+                    if(err){return next(err);}
+                    if(found_category){
+                        // Category exists, redirect to its detail page.
+                        res.redirect('/dashboard/' + found_category.url)
+                    }
+                    else {
+                        category.save((err) => {
+                            if(err){return next(err);}
+                            // Category saved. Redirect to category detail page. 
+                            res.redirect('/dashboard/' + category.url);
+                        })    
+                    }
+                })
+            }
+    }
+]
 
 // Display Category update form on GET
 exports.category_update_get = (req, res) => {
