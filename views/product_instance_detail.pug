@@ -5,4 +5,7 @@ block content
         h3 Color: #{product_instance.color}
         h3 Product: 
                 a(href='/dashboard/' + product_instance.product.url) #{product_instance.product.title}
-        p Availability: #{product_instance.availability}                
+        p Availability: #{product_instance.availability}
+
+        a.btn.btn-warning(type="button" href=`/dashboard/${product_instance.url}/update`) Update
+        a.btn.btn-danger(type="button" href=`/dashboard/${product_instance.url}/delete`) Delete         

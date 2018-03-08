@@ -1,0 +1,35 @@
+extends layout
+
+block content
+    h1 #{title}
+
+    form(method='POST' action='')
+        .form-group
+            label(for='product') Product:
+            select#product.form-control(name='product')
+                each product in product_list
+                    option(value=product.id) #{product.title}
+        .form-group
+            label(for='title') Title:
+            input#title.form-control(type='text', placeholder='Ferrari - DBR, Hexa - CPK' name='title' value=(undefined===productInstance ? '' : productInstance.title))
+        .form-group
+            label(for='color') Color:
+            input#color.form-control(type='text', placeholder='DBR, RED, MHG, TCO' name='color' value=(undefined===productInstance ? '' : productInstance.color))
+        .form-group
+            .form-check.form-check-inline
+                input#available.form-check-input(type='radio' name='availability' value='Available' checked)                   
+                label.form-check-label(for='available') Available:
+            .form-check.form-check-inline
+                input#notavailable.form-check-input(type='radio' name='availability' value='Not Available')                   
+                label.form-check-label(for='notavailable') Not Available:
+            .form-check.form-check-inline
+                input#discontinued.form-check-input(type='radio' name='availability' value='Discontinued')                   
+                label.form-check-label(for='discontinued') Discontinued:
+
+            
+        button.btn.btn-primary(type='submit') Submit
+
+    if errors 
+        ul
+            for error in errors
+                li!= error.msg
