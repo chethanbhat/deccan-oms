@@ -1,29 +1,37 @@
 extends layout
 
 block content
-    h1 #{title}
+    if product_instance
+        h1 #{title} : #{product_instance.title}
+    else
+        h1 #{title}
+
+    
 
     form(method='POST' action='')
         .form-group
             label(for='product') Product:
             select#product.form-control(name='product')
                 each product in product_list
-                    option(value=product.id) #{product.title}
+                    if product_instance && product_instance.product.title === product.title
+                        option(value=product.id selected='selected') #{product.title}
+                    else
+                        option(value=product.id) #{product.title}
         .form-group
             label(for='title') Title:
-            input#title.form-control(type='text', placeholder='Ferrari - DBR, Hexa - CPK' name='title' value=(undefined===productInstance ? '' : productInstance.title))
+            input#title.form-control(type='text', placeholder='Ferrari - DBR, Hexa - CPK' name='title' value=(undefined===product_instance ? '' : product_instance.title))
         .form-group
             label(for='color') Color:
-            input#color.form-control(type='text', placeholder='DBR, RED, MHG, TCO' name='color' value=(undefined===productInstance ? '' : productInstance.color))
+            input#color.form-control(type='text', placeholder='DBR, RED, MHG, TCO' name='color' value=(undefined===product_instance ? '' : product_instance.color))
         .form-group
             .form-check.form-check-inline
-                input#available.form-check-input(type='radio' name='availability' value='Available' checked)                   
+                input#available.form-check-input(type='radio' name='availability' value='Available'  checked=(undefined===product_instance ? 'checked' : (product_instance.availability === 'Available' ? 'checked' : false)))                   
                 label.form-check-label(for='available') Available:
             .form-check.form-check-inline
-                input#notavailable.form-check-input(type='radio' name='availability' value='Not Available')                   
+                input#notavailable.form-check-input(type='radio' name='availability' value='Not Available' checked=(undefined===product_instance ? false : (product_instance.availability === 'Not Available' ? 'checked' : false)))                   
                 label.form-check-label(for='notavailable') Not Available:
             .form-check.form-check-inline
-                input#discontinued.form-check-input(type='radio' name='availability' value='Discontinued')                   
+                input#discontinued.form-check-input(type='radio' name='availability' value='Discontinued' checked=(undefined===product_instance ? false : (product_instance.availability === 'Discontinued' ? 'checked' : false)))                   
                 label.form-check-label(for='discontinued') Discontinued:
 
             

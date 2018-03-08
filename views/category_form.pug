@@ -1,12 +1,15 @@
 extends layout
 
 block content
-    h1 #{title}
+    if category
+        h1 #{title} : #{category.title}
+    else 
+        h1 #{title}
 
     form(method='POST' action='')
         div.form-group
             label(for='title') Category:
-            input#name.form-control(type='text', placeholder='Premium Arm Chairs, Premium Relax Chairs etc.' name='title' value=(undefined===category ? '' : category.name))
+            input#name.form-control(type='text', placeholder='Premium Arm Chairs, Premium Relax Chairs etc.' name='title' value=(undefined===category ? '' : category.title))
         button.btn.btn-primary(type='submit') Submit
 
     if errors 

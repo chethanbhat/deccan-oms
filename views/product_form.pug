@@ -1,7 +1,10 @@
 extends layout
 
 block content
-    h1 #{title}
+    if product
+        h1 #{title} : #{product.title}
+    else
+        h1 #{title}
 
     form(method='POST' action='')
         div.form-group
@@ -11,7 +14,10 @@ block content
             label(for='category') Category:
             select#category.form-control(name='category')
                 each category in category_list
-                    option(value=category.id) #{category.title}
+                    if product && product.category.title === category.title
+                        option(value=category.id selected='selected') #{category.title}
+                    else
+                        option(value=category.id) #{category.title}
         .form-group                    
             label(for='price') Price (in Rs):
             input#price.form-control(type='number', placeholder='1250, 750, 500' name='price' value=(undefined===product ? '' : product.price))

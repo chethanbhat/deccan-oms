@@ -10,9 +10,7 @@ var stylus = require('stylus');
 //Set up mongoose connection
 var mongoose = require('mongoose');
 var mongoDB = 'mongodb://deccanplast:baikampady@ds251827.mlab.com:51827/deccan-oms-dev';
-mongoose.connect(mongoDB, {
-  useMongoClient: true
-});
+mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));

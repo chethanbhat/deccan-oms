@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    h1 #{title}: #{product_instance.title}
+  
+    p Do you really want to delete this Product Instance?
+
+    form(method='POST' action='')
+        div.form-group
+        input#productinstanceid.form-control(type='hidden',name='productinstance', required='true', value=product_instance._id )
+
+        button.btn.btn-primary(type='submit') Delete

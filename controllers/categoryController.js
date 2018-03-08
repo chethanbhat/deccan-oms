@@ -87,21 +87,90 @@ exports.category_create_post = [
 ]
 
 // Display Category update form on GET
-exports.category_update_get = (req, res) => {
-    res.send('Not Implemented: Category Update GET');
+exports.category_update_get = (req, res, next) => {
+    Category.findById(req.params.id, (err, category) => {
+        if(err){return next(err);}
+        res.render('category_form', {title: 'Update Category', category: category});  
+    })
+    
 }
 
 // Handle Category update form on POST
-exports.category_update_post = (req, res) => {
-    res.send('Not Implemented: Category Update POST');
-}
+exports.category_update_post = [
+    // Validate that the name field is not empty.
+    body('title', 'Category name required').isLength({min:1}).trim(),
+    
+    // Sanitize (trim and escape) the name field.
+    sanitizeBody('title').trim().escape(),
+
+    // Process request after validation and sanitization.
+    (req, res, next) => {
+            // Extract the validation errors from a request.
+            const errors = validationResult(req);
+
+            // Create a genre object with escaped and trimmed data.
+            const category = new Category(
+                { title: req.body.title,
+                _id: req.params.id}
+            );
+
+            if (!errors.isEmpty()) {
+                // There are errors. Render the form again with sanitized values/error messages.
+                res.render('category_form', { title: 'Create Category', category: category, errors: errors.array()});
+            return;
+            }
+            else {
+                // Data from form is valid.
+                // Check if Category with same name already exists.
+                Category.findByIdAndUpdate(req.params.id, category, function updateCategory(err){
+                    if(err){return next(err);}
+                    res.redirect('/dashboard/' + category.url)
+                });
+            }
+    }
+]
 
 // Display Category delete form on GET
-exports.category_delete_get = (req, res) => {
-    res.send('Not Implemented: Category Delete GET');
+exports.category_delete_get = (req, res, next) => {
+    async.parallel({
+        category: (callback) => {
+            Category.findById(req.params.id).exec(callback);
+        },
+        category_products: (callback) => {
+            Product.find({'category': req.params.id}).exec(callback);
+        } 
+    }, (err, results) => {
+        if(err){return next(err);}
+        if(results.category == null){res.redirect('/dashboard/categories')}
+
+        res.render('category_delete', {title: 'Delete Category', category: results.category, category_products: results.category_products});
+    })
 }
 
 // Handle Category delete form on POST
-exports.category_delete_post = (req, res) => {
-    res.send('Not Implemented: Category Delete POST');
+exports.category_delete_post = (req, res, next) => {
+    async.parallel({
+        category: (callback) => {
+          Category.findById(req.params.id).exec(callback)
+        },
+        category_products: (callback) => {
+          Product.find({ 'category': req.params.id }).exec(callback)
+        },
+    }, (err, results) => {
+        if (err) { return next(err); }
+        // Success
+        if (results.category_products.length > 0) {
+            // Category has products. Render in same way as for GET route.
+            res.render('category_delete', { title: 'Delete Category', category: results.category, category_products: results.category_products } );
+            return;
+        }
+        else {
+            // Category has no products. Delete object and redirect to the list of categories.
+            Category.findByIdAndRemove(req.params.id, function deleteCategory(err) {
+                if (err) { return next(err); }
+                // Success - go to author list
+                res.redirect('/dashboard/categories')
+            })
+        }
+    });
 }
