@@ -1,0 +1,30 @@
+extends layout
+
+block content
+    if user
+        h1 #{title} : #{user.name}
+    else 
+        h1 #{title}
+
+    form(method='POST' action='')
+        div.form-group
+            label(for='name') Name:
+            input#name.form-control(type='text', placeholder='John Doe, Walker Enterprises, ABC Associates' name='name' value=(undefined===user ? '' : user.name))
+        div.form-group
+            label(for='email') Email:
+            input#email.form-control(type='email', placeholder='abdcompany@gmail.com' name='email' value=(undefined===user ? '' : user.email))
+        div.form-group
+            label(for='phone') Phone:
+            input#phone.form-control(type='text', placeholder='9966117799' name='phone' value=(undefined===user ? '' : user.phone))     
+        div.form-group
+            label(for='address') Address:
+            input#address.form-control(type='text', placeholder='6-B/1, Industrial Area, Baikampady, Mangalore-575011' name='address' value=(undefined===user ? '' : user.address))   
+        div.form-group
+            label(for='vendorcode') Vendor Code:
+            input#vendorcode.form-control(type='number', placeholder='7' name='vendorcode' value=(undefined===user ? '' : user.vendorCode))             
+        button.btn.btn-primary(type='submit') Submit
+
+    if errors 
+        ul
+            for error in errors
+                li!= error.msg

@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  h1 #{title}: #{user.name}
+  
+  if user_orders.length
+  
+    p #[strong User has following orders. Hence cannot be deleted]
+  
+    div(style='margin-left:20px;margin-top:20px')
+
+      h4 Orders
+    
+      dl
+      each order,index in user_orders
+        dt
+          #{index+1}
+          a(href='/dashboard/' + order.url) #{order._id}
+
+  else
+    p Do you really want to delete this User?
+    
+    form(method='POST' action='')
+      div.form-group
+        input#userid.form-control(type='hidden',name='userid', required='true', value=user._id )
+
+      button.btn.btn-primary(type='submit') Delete
