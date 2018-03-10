@@ -6,7 +6,8 @@ block content
     .grid 
         each product in product_list
             .tile
-                img(src=product.image, alt="")
+                if product.image
+                    img(src=product.image, alt="")
                 h3 
                     a(href=product.url) #{product.title} 
                 p 

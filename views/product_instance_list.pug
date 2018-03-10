@@ -6,7 +6,8 @@ block content
     .grid
         each product in product_instance_list
             .tile
-                img(src=product.image, alt="")
+                if product.image
+                    img(src=product.image, alt="")
                 p 
                     a(href=product.url) #{product.title}
             

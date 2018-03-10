@@ -5,7 +5,8 @@ block content
     .grid
         each category in category_list
             .tile
-                img(src=category.image, alt="")
+                if category.image
+                    img(src=category.image, alt="")
                 h3
                 a(href=category.url) #{category.title}
         else
