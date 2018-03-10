@@ -30,7 +30,9 @@ block content
                 textarea#features.form-control(name="features") #{product.features}
             else 
                 textarea#features.form-control(name='features', placeholder='Few lines about the product...')
-            
+        .form-group
+            label(for='image') Image:
+            input#image.form-control(type='text', placeholder='https://s3-ap-southeast-1.amazonaws.com/deccan-images/armless.png' name='image' value=(undefined===product ? '' : product.image))  
         button.btn.btn-primary(type='submit') Submit
 
     if errors 

@@ -2,6 +2,7 @@ extends layout
 
 block content
         h1 Product Instance: #{product_instance.title}
+        img(src=product_instance.image, alt="")
         h3 Color: #{product_instance.color}
         h3 Product: 
                 a(href='/dashboard/' + product_instance.product.url) #{product_instance.product.title}

@@ -2,11 +2,11 @@ extends layout
 
 block content
     h1= title
-
-    ul
-    each category in category_list
-        img(src=category.image, alt="")
-        h3
-            a(href=category.url) #{category.title}
-    else
-        p There are no categories.
+    .grid
+        each category in category_list
+            .tile
+                img(src=category.image, alt="")
+                h3
+                a(href=category.url) #{category.title}
+        else
+            p There are no categories.

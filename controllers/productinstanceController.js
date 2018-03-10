@@ -64,6 +64,7 @@ exports.productinstance_create_post = [
                     title: req.body.title,
                     product: req.body.product,
                     color: req.body.color,
+                    image: req.body.image,
                     availability: req.body.availability
                 }
             );
@@ -136,6 +137,7 @@ exports.productinstance_update_post = [
                     title: req.body.title,
                     product: req.body.product,
                     color: req.body.color,
+                    image: req.body.image,
                     availability: req.body.availability,
                     _id: req.params.id
                 }

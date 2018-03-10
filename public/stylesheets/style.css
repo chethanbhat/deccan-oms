@@ -10,3 +10,16 @@ a {
   padding: 0;
   list-style: none;
 }
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+.tile {
+  margin: 25px;
+  display: flex;
+  flex-direction: column;
+}
+.tile img {
+  max-width: 150px;
+  max-height: 225px;
+}

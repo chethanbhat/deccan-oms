@@ -7,6 +7,7 @@ var ProductInstanceSchema = new Schema(
     title: {type: String, required: true, max: 100},
     product: {type: Schema.ObjectId, ref: 'Product', required: true},
     color: {type: String},
+    image: {type: String, default: 'https://s3-ap-southeast-1.amazonaws.com/deccan-images/armless.png'},
     availability: {type: String, required: true, enum: ['Available', 'Not Available', 'Discontinued'], default: 'Available'}
   }
 );

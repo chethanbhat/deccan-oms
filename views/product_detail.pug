@@ -2,6 +2,7 @@ extends layout
 
 block content
         h1 Product: #{product.title}
+        img(src=product.image, alt="")
         h3 Category: 
                 a(href='/dashboard/' + product.category.url) #{product.category.title}
         p  Below are the instances of this product.

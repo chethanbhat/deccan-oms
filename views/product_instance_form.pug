@@ -24,6 +24,9 @@ block content
             label(for='color') Color:
             input#color.form-control(type='text', placeholder='DBR, RED, MHG, TCO' name='color' value=(undefined===product_instance ? '' : product_instance.color))
         .form-group
+            label(for='image') Image:
+            input#image.form-control(type='text', placeholder='https://s3-ap-southeast-1.amazonaws.com/deccan-images/armless.png' name='image' value=(undefined===product_instance ? '' : product_instance.image))            
+        .form-group
             .form-check.form-check-inline
                 input#available.form-check-input(type='radio' name='availability' value='Available'  checked=(undefined===product_instance ? 'checked' : (product_instance.availability === 'Available' ? 'checked' : false)))                   
                 label.form-check-label(for='available') Available:

@@ -9,6 +9,7 @@ var ProductSchema = new Schema(
     dimensions: {type: String},
     features: {type: String},
     category: {type: Schema.ObjectId, ref: 'Category', required: true},
+    image: {type: String, default: 'https://s3-ap-southeast-1.amazonaws.com/deccan-images/armless.png'}
   }
 );
 

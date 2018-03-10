@@ -10,7 +10,7 @@ const { sanitizeBody } = require('express-validator/filter');
 
 // Display list of all Products
 exports.product_list = (req, res) => {
-    Product.find({}, 'title')
+    Product.find({})
          .populate('category')
          .exec(function(err, list_products){
             if(err) { return next(err);}
@@ -75,6 +75,7 @@ exports.product_create_post = [
                         category: req.body.category,
                         features: req.body.features,
                         dimensions: req.body.dimensions,
+                        image: req.body.image,
                     }
                 );
     
@@ -148,6 +149,7 @@ exports.product_update_post = [
                     category: req.body.category,
                     features: req.body.features,
                     dimensions: req.body.dimensions,
+                    image: req.body.image,
                     _id: req.params.id
                 }
             );
