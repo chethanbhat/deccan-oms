@@ -47,7 +47,7 @@ exports.category_create_post = [
     body('title', 'Category name required').isLength({min:1}).trim(),
     
     // Sanitize (trim and escape) the name field.
-    sanitizeBody('*').trim().escape(),
+    sanitizeBody('title').trim().escape(),
 
     // Process request after validation and sanitization.
     (req, res, next) => {

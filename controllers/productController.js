@@ -60,7 +60,10 @@ exports.product_create_post = [
         body('price', 'Product price required').isLength({min:1}).trim(),
     
         // Sanitize (trim and escape) the name field.
-        sanitizeBody('*').trim().escape(),
+        sanitizeBody('title').trim().escape(),
+        sanitizeBody('price').trim().escape(),
+        sanitizeBody('dimensions').trim().escape(),
+        sanitizeBody('features').trim().escape(),
     
         // Process request after validation and sanitization.
         (req, res, next) => {
@@ -134,7 +137,10 @@ exports.product_update_post = [
     body('price', 'Product price required').isLength({min:1}).trim(),
 
     // Sanitize (trim and escape) the name field.
-    sanitizeBody('*').trim().escape(),
+    sanitizeBody('title').trim().escape(),
+    sanitizeBody('price').trim().escape(),
+    sanitizeBody('dimensions').trim().escape(),
+    sanitizeBody('features').trim().escape(),
 
     // Process request after validation and sanitization.
     (req, res, next) => {

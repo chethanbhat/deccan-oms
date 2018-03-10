@@ -51,7 +51,8 @@ exports.productinstance_create_post = [
     body('color', 'Product Color is required').isLength({min:3}).trim(),
 
     // Sanitize (trim and escape) the name field.
-    sanitizeBody('*').trim().escape(),
+    sanitizeBody('title').trim().escape(),
+    sanitizeBody('color').trim().escape(),
 
     // Process request after validation and sanitization.
     (req, res, next) => {
@@ -124,7 +125,8 @@ exports.productinstance_update_post = [
     body('color', 'Product Color is required').isLength({min:3}).trim(),
 
     // Sanitize (trim and escape) the name field.
-    sanitizeBody('*').trim().escape(),
+    sanitizeBody('title').trim().escape(),
+    sanitizeBody('color').trim().escape(),
 
     // Process request after validation and sanitization.
     (req, res, next) => {
