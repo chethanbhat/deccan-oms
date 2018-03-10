@@ -2,6 +2,7 @@ extends layout
 
 block content
         h1 Category: #{category.title}
+        img(src=category.image, alt="")
         p  Below are the products in this category.
         .products_list
             each product in category_products

@@ -11,7 +11,7 @@ const { sanitizeBody } = require('express-validator/filter');
 
 // Display list of all Categories
 exports.category_list = (req, res) => {
-    Category.find({},'title')
+    Category.find({})
             .exec((err, list_categories) => {
                 if(err){return next(err);}
                 res.render('category_list', {title: 'All Categories', category_list: list_categories});
@@ -47,7 +47,7 @@ exports.category_create_post = [
     body('title', 'Category name required').isLength({min:1}).trim(),
     
     // Sanitize (trim and escape) the name field.
-    sanitizeBody('title').trim().escape(),
+    sanitizeBody('*').trim().escape(),
 
     // Process request after validation and sanitization.
     (req, res, next) => {
@@ -56,7 +56,8 @@ exports.category_create_post = [
 
             // Create a genre object with escaped and trimmed data.
             const category = new Category(
-                { title: req.body.title }
+                { title: req.body.title,
+                  image: req.body.image}
             );
 
             if (!errors.isEmpty()) {
@@ -111,6 +112,7 @@ exports.category_update_post = [
             // Create a genre object with escaped and trimmed data.
             const category = new Category(
                 { title: req.body.title,
+                  image: req.body.image,
                 _id: req.params.id}
             );
 

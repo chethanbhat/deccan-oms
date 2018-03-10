@@ -3,9 +3,10 @@ extends layout
 block content
     h1= title
 
-    ul 
+    ul
     each category in category_list
-        p 
-            a(href=category.url) #{category.title} 
+        img(src=category.image, alt="")
+        h3
+            a(href=category.url) #{category.title}
     else
         p There are no categories.
